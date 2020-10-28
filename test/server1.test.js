@@ -5,7 +5,7 @@ chai.use(chaiHttp);
 const serialiser = require('node-serialize');
 // const { entries } = require('../inputStubs');
 const should = chai.should();
-const server = require('../../server')
+const server = require('../server')
 const websiteURL = 'localhost:5400'
 
 var requester = chai.request(server).keepOpen()

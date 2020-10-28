@@ -5,7 +5,7 @@ chai.use(chaiHttp);
 const serialiser = require('node-serialize');
 // const { entries } = require('../inputStubs');
 const should = chai.should();
-var server = require('../../server');
+var server = require('../server');
 var websiteURL = 'localhost:5400'
 
 //TestCases invloving changing the internal StudentArray

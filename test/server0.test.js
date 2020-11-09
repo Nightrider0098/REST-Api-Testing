@@ -34,12 +34,12 @@ describe("Insersion Tests.", () => {
             expect(typeof (res.body.currentClass)).to.eq(typeof (1))
         })
     })
-    
+
     it('Valid post request should return status code 200.', () => {
-        chai.request(websiteURL).keepOpen().post('/api/student').set('content-type', 'application/x-www-form-urlencoded').send({ name: 'Kacha', currentClass: 12, division: 'A' }).end((err, res) => {
+        chai.request(websiteURL).post('/api/student').set('content-type', 'application/x-www-form-urlencoded').send({ name: 'Kacha', currentClass: 12, division: 'A' }).end((err, res) => {
             expect(res.status).to.equal(200)
             expect(res.body.id).not.to.eq(undefined)
-            
+
             chai.request(websiteURL).get('/api/student/5').end((err, res) => {
                 expect(res.status).to.equal(200)
                 expect(res.body.name).to.eq('Kacha')
@@ -53,7 +53,7 @@ describe("Insersion Tests.", () => {
 describe('Update Test.', () => {
 
     it('Only fields mention in put request should be updated and rest should remain unchanged.', () => {
-        chai.request(server).keepOpen().put('/api/student/2').set('content-type', 'application/x-www-form-urlencoded').send({ name: 'Goli' }).end((err, res) => {
+        chai.request(server).put('/api/student/2').set('content-type', 'application/x-www-form-urlencoded').send({ name: 'Goli' }).end((err, res) => {
             expect(res.status).to.eq(200)
             chai.request(server).get('/api/student/2').end((err, res) => {
                 expect(res.status).to.eq(200)
@@ -65,10 +65,10 @@ describe('Update Test.', () => {
     })
 
     it('Valid put request should update the student details.', () => {
-        let browser = chai.request(websiteURL).keepOpen()
-        browser.put('/api/student/1').set('content-type', 'application/x-www-form-urlencoded').send({ name: 'Goli', currentClass: 9, division: 'A' }).end((err, res) => {
+
+        chai.request(websiteURL).put('/api/student/1').set('content-type', 'application/x-www-form-urlencoded').send({ name: 'Goli', currentClass: 9, division: 'A' }).end((err, res) => {
             expect(res.status).to.eq(200)
-            browser.get('/api/student/1').end((err, res) => {
+            chai.request(websiteURL).get('/api/student/1').end((err, res) => {
                 expect(res.status).to.eq(200)
                 expect(res.body.name).to.eq('Goli')
                 expect(res.body.currentClass).to.eq(9)
